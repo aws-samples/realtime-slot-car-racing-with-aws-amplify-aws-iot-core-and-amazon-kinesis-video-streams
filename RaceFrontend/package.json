@@ -24,6 +24,9 @@
     "react-scripts": "^5.0.1",
     "web-vitals": "^2.1.0"
   },
+  "devDependencies": {
+    "nth-check": "^2.1.1"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
@@ -51,6 +54,7 @@
   "overrides": {
     "react-kinesis-webrtc": {
       "react": "$react"
-    }
+    },
+    "nth-check": "$nth-check"
   }
 }
