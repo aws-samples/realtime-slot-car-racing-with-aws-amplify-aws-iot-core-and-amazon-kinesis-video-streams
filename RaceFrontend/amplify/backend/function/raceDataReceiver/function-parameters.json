@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "api": {
+      "racer": [
+        "Query",
+        "Mutation"
+      ]
+    }
+  },
+  "lambdaLayers": []
+}

@@ -1,0 +1,30 @@
+TOPIC: GAME_STATE_UPDATE
+{
+   "raceId": "1",
+    "gameState": "lobby",
+    "carClaims": [
+      {"carId": 1, "playerId": "1"},
+      {"carId": 2, "playerId": ""},
+      {"carId": 3, "playerId": ""},
+      {"carId": 4, "playerId": ""},
+      {"carId": 5, "playerId": ""},
+      {"carId": 6, "playerId": ""}
+    ]
+}
+
+TOPIC: CAR_CONTROL_UPDATE
+{
+  "raceId": "1",
+   "carId":  1,
+   "playerId": 1,
+   "laneChangeReq": true,
+   "brakesOnReq": true,
+   "throttle": 60
+}
+
+TOPIC: RACE_LAP_TIMES
+{
+  "raceId": "<RACE_ID>",
+  "playerId": "<PLAYER_ID>",
+  "timeInMilliSec": 1800
+}
