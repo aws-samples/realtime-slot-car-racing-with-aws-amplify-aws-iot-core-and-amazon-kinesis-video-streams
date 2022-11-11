@@ -1,0 +1,3 @@
+* Update subscription logic to focus on a particular raceId
+* Link to external MQTT endpoint
+* Add subscribers for car (by id) and race (by id) in the controller to update in real-time

@@ -1,0 +1,45 @@
+exports.CARS = [
+  { color: "green", value: 1},
+  { color: "red", value: 2},
+  { color: "orange", value: 3},
+  { color: "white", value: 4},
+  { color: "yellow", value: 5},
+  { color: "blue", value: 6},
+]
+
+exports.ERRORS = {
+  INVALID_PIN: "INVALID_PIN",
+  INVALID_OPERATION: "INVALID_OPERATION",
+  ERROR_CREATING_CAR: "ERROR_CREATING_CAR",
+  ERROR_CREATING_OVERVIEW: "ERROR_CREATING_OVERVIEW",
+  ERROR_CREATING_RACE: "ERROR_CREATING_RACE",
+  ERROR_CREATING_PLAYER: "ERROR_CREATING_PLAYER",
+  ERROR_CREATING_RACE_STATE: "ERROR_CREATING_RACE_STATE",
+  ERROR_UPDATING_RACE_OVERVIEW: "ERROR_UPDATING_RACE_OVERVIEW"
+}
+
+exports.SUCCESS_MESSAGES = {
+  SUCCESSFUL_INIT: "SUCCESFULLY_INITIALISED_ENVIRONMENT",
+  SUCCESSFUL_STATE_UPDATE: "SUCCESFULLY_SET_RACE_STATE",
+  SUCCESSFUL_RACE_INIT: "SUCCESFULLY_CREATED_RACE",
+  SUCCESSFUL_OVERVIEW_UPDATE: "SUCCESSFUL_OVERVIEW_UPDATE",
+}
+
+exports.RACE_STATES = {
+  LOBBY: "lobby",
+  PENDING: "pending",
+  PRACTICE: "practice",
+  RED_FLAG: "red_flag",
+  YELLOW_FLAG: "yellow_flag",
+  GREEN_FLAG: "green_flag",
+  CHECKERED_FLAG: "checkered_flag",
+  ABORTED: "aborted",
+  FORMATION_LAPS: "formation_laps"
+}
+
+exports.STATUS = {
+  ERROR: "ERROR",
+  SUCCESS: "SUCCESS"
+}
+
+exports.CORE_OVERVIEW_ID = 1

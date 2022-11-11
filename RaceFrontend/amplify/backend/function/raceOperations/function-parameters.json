@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "api": {
+      "racer": [
+        "Query",
+        "Mutation"
+      ]
+    }
+  },
+  "lambdaLayers": [],
+  "environmentVariableList": [
+    {
+      "cloudFormationParameterName": "secretpin",
+      "environmentVariableName": "SECRETPIN"
+    }
+  ]
+}

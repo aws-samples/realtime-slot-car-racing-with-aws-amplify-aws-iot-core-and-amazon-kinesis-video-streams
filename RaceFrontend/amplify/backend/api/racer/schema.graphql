@@ -1,0 +1,160 @@
+# This "input" configures a global authorization rule to enable public access to
+# all models in this schema. Learn more about authorization rules here: https://docs.amplify.aws/cli/graphql/authorization-rules
+# input AMPLIFY { globalAuthRule: AuthRule = { allow: public } } # FOR TESTING ONLY!
+
+type Overview @model @auth(rules: [{allow: public, operations: [read]}, {allow: private, provider: iam}]){
+  id: ID!
+  currentRace: Race @hasOne
+  allRaces: [Race] @hasMany
+}
+
+type Race @model @auth(rules: [{allow: public, operations: [read]}, {allow: private, provider: iam}]){
+  id: ID!
+  players: [Player] @hasMany
+  lapTimes: [LapTime] @hasMany(indexName: "byRace", fields: ["id"])
+  # fastestLapTime: LapTime @hasOne # CALCULATE THIS DYNAMICALLY INSTEAD
+  nrOfLaps: Int!
+  currentRaceState: RACE_STATE!
+  finalStats: FinalRaceStats @hasOne
+}
+
+
+# TODO: CREATE THIS WHEN CHECKERED FLAG STATUS SET IN OTHER LAMBDA FUNCTION
+type FinalRaceStats @model @auth(rules: [{allow: public, operations: [read]}, {allow: private, provider: iam}]){
+  id: ID!
+  raceId: ID! @index(name: "byRace", queryField: "raceStatsByRaceId")
+  race: Race! @belongsTo(fields: ["raceId"])
+  fastestLapTime: LapTime! @hasOne
+  winner: Player! @hasOne
+}
+
+type Player @model @auth(rules: [{allow: public, operations: [read]}, {allow: private, provider: iam}]){
+  id: ID!
+  car: Car! @hasOne
+  race: Race! @belongsTo
+  allLapTimes: [LapTime] @hasMany(indexName: "byPlayer", fields: ["id"])
+  claims: [PlayerClaim] @hasMany # Is really a hasOne, but this way, we can query without needing to adjust player object
+  # https://github.com/aws-amplify/amplify-cli/issues/10133
+}
+
+type PlayerClaim @model @auth(rules: [{allow: public}, {allow: private, provider: iam}]){
+  id: ID! # Use PlayerId to prevent multiple claims on the same player
+  uuid: String!
+  username: String!
+  player: Player! @belongsTo
+}
+
+type Car @model @auth(rules: [{allow: public, operations: [read]}, {allow: private, provider: iam}]){
+  id: ID!
+  color: CAR_COLOR!
+  throttle: Int! @default(value: "0")
+  fuelLevel: Int! @default(value: "100")
+  tireWear: Int! @default(value: "0")
+  speed: Int! @default(value: "0")
+  requestLaneSwitch: Boolean! @default(value: "false")
+  brakesOn: Boolean! @default(value: "false")
+}
+
+type LapTime @model @auth(rules: [{allow: public, operations: [read]}, {allow: private, provider: iam}]){
+  id: ID!
+  raceId: ID! @index(name: "byRace", queryField: "lapTimesByRaceId")
+  race: Race! @belongsTo(fields: ["raceId"])
+  playerId: ID! @index(name: "byPlayer", queryField: "lapTimesByPlayerId")
+  player: Player! @belongsTo(fields: ["playerId"])
+  timeInMilliSec: Int!
+  type: String! @index(name: "lapTimesByTime", queryField: "lapTimesByTime", sortKeyFields: ["timeInMilliSec"])
+}
+
+enum RACE_STATE {
+  lobby
+  practice
+  pending
+  red_flag
+  yellow_flag
+  green_flag
+  formation_laps
+  checkered_flag
+  aborted
+}
+
+enum RACE_OPERATIONS {
+  initialise
+  set_practice
+  set_pending
+  trigger_red_flag
+  trigger_yellow_flag
+  trigger_green_flag
+  trigger_checkered_flag
+  trigger_formation_laps
+  abort_race
+  create_new_race
+}
+
+enum CAR_COLOR {
+  green
+  red
+  orange
+  white
+  yellow
+  blue
+}
+
+input raceOperationInput {
+  operation: RACE_OPERATIONS!
+  secretPin: String!
+  additionalParams: additionalParams
+}
+
+input additionalParams {
+  nrOfLaps: Int
+  raceId: String
+}
+
+type operationOutput {
+  status: String!
+  message: String!
+  details: String # Optional
+}
+
+
+type Query @aws_api_key @aws_iam {
+  raceOperations(input: raceOperationInput): operationOutput @function(name: "raceOperations-${env}")
+}
+
+type Subscription {
+  onUpdateRaceById(id: String!): Race @aws_subscribe(mutations: ["updateRace"])
+}
+
+# ##### REMOVE THE ITEMS BELOW HERE FOR REMOTE ENVIRONMENTS
+# input createLapTimeInput {
+#   raceId: String!
+#   playerId: String!
+#   timeInMilliSec: Int!
+# }
+
+# type Mutation @aws_api_key {
+#   createNewLapTime(input: createLapTimeInput): operationOutput @function(name: "raceDataReceiver-${env}")
+#   generateClientCertificate(input: clientCertificateInput): operationOutput @function(name: "raceOperations-${env}")
+# }
+
+
+# input CastVoteInput {
+#   id: ID!
+#   newVoteField: String!
+# }
+
+# input UpdateCastedVoteInput {
+#   id: ID!
+#   newVoteField: String!
+#   oldVoteField: String!
+# }
+
+# type Mutation @aws_cognito_user_pools @aws_iam {
+#     castVote(input: CastVoteInput!): Replay
+#     updateCastedVote(input: UpdateCastedVoteInput!): Replay
+# }
+
+# type Subscription {
+#     onUpdateReplayById(id: String!): Replay @aws_subscribe(mutations: ["castVote", "updateCastedVote"])
+#     onUpdateReplayByIdVoD(id: String!): Replay @aws_subscribe(mutations: ["updateReplay"])
+# }

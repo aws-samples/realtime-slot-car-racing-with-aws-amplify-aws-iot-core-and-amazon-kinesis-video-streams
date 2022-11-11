@@ -1,0 +1,4 @@
+paho-mqtt==1.6.1
+parameterized==0.8.1
+RPi.GPIO
+pyserial
