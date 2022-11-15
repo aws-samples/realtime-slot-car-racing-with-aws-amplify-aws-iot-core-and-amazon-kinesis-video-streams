@@ -6,5 +6,5 @@
 
 # Car Data Logger Software Installation
 
-*NOTE: These steps assume that you have complete the Harwaer installation as documented in* `Hardware` *folder.*
+*NOTE: These steps assume that you have complete the Hardware installation as documented in* `Hardware` *folder.*
 
