@@ -12,18 +12,19 @@
 - WiFi SSID and Password*
 
 1. Download the `nano_rp2040_iot` folder to your PC and move it to the Arduino sketches home folder.  On a Windows PC this will typically be in `C:\Users\<UID>\Documents\Arduino`.
-2. Open the Arduino IDE and then open the nano_rp2040_iot.ino file.  you should see two tabs appear, one for the ino file itself and one for the arduino_secrets.h file.
-3. Update the following items in your arduino_secrets.h file:
+2. Connect your Arduino Nano to your PC using a USB cable.
+3. Open the Arduino IDE and then open the nano_rp2040_iot.ino file.  You should see two tabs appear, one for the ino file itself and one for the arduino_secrets.h file.
+4. Update the following items in your arduino_secrets.h file:
 - SECRET_SIDD: The SIDD of your WiFi network
 - SECRET_PASS: The Password for your WiFi network
 - SECRET_BROKER: The AWS IoT Endpoint
 - SECRET_CERTIFICATE: The *PUBLIC* certificate you got when you registered the device.  *Note: The secret key is stored on your Arduino in the secure element.*
-4. Click on the Upload button in the Arduino IDE to compile and upload the sketch.  
-5. After the sketch has uploaded and installed on the Arduino nano, open the *Tools > Serial Monitor*.  You should see the device booting up, attaching to the WiFi network and starting the transmission of data.  If you move the Arduino around you will see the accellerometer and gyro recording the movement.
+5. Click on the Upload button in the Arduino IDE to compile and upload the sketch.  
+6. After the sketch has uploaded and installed on the Arduino nano, open the *Tools > Serial Monitor*.  You should see the device booting up, attaching to the WiFi network and starting the transmission of data.  If you move the Arduino around you will see the accellerometer and gyro recording the movement.
 
 ## Integrating with AWS IoT Core
 
-1. Open the AWS Console and navigate to *AWS IoT Core > MQTT Test Client*.  Click on the *Subscripbe to a topic* tab and enter *carid6/gforce* for the *Topic filter* feild.  You should see the data arriving in IoT Core from the Arduino in JSON format.
+1. Open the AWS Console and navigate to *AWS IoT Core > MQTT Test Client*.  Click on the *Subscripbe to a topic* tab and enter *carid6/gforce* for the *Topic filter* field.  You should see the data arriving in IoT Core from the Arduino in JSON format.
 
 ## Integrating with AWS IoT Core Analytics
 
