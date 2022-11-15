@@ -6,4 +6,5 @@
 
 # Car Data Logger Software Installation
 
-Arduino IDE Setup
+*NOTE: These steps assume that you have complete the Harwaer installation as documented in* `Hardware` *folder.*
+
