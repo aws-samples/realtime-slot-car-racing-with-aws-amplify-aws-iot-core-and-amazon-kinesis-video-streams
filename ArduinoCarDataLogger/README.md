@@ -27,7 +27,20 @@
 
 ![Arduino Data Capture](images/data_capture.jpg)
 
-## Integrating with AWS IoT Core
+7.  There are a few NEOPIXEL states you need to be aware of when the device is running.
+- red: the device is connecting to WiFi and MQTT
+- blue flashing: the device is sending data to IoT Core.  This happens every 50ms.
+
+
+
+8.  If you device appears to hang after a start this may be because the USB Serial monitore is not starting correctly.  To remedy this, open the sketch and comment out the section show here.  Upload the sketch to the device again.
+```
+  //while (!Serial) { // wait for the serial to begin just in case
+  //  ;
+  //}
+```
+
+# Integrating with AWS IoT Core
 
 1. Open the AWS Console and navigate to *AWS IoT Core > MQTT Test Client*.  Click on the *Subscripbe to a topic* tab and enter *carid6/gforce* for the *Topic filter* field.  You should see the data arriving in IoT Core from the Arduino in JSON format.
 
@@ -48,7 +61,7 @@
 - rule: copies the messages from IoT Core to the target channel in IoT Analytics
 3. Your data can now be queried direct from the dataset using Quicksight or Jupyter notebooks.
 
-## Creating Visualisations - Jupyter
+# Creating Visualisations - Jupyter
 
 1. Open the AWS Console and navigate to *AWS IoT Analytics* > Notebooks*.
 2. Click on the *Create Notebook* button.  
@@ -98,3 +111,14 @@ df3.plot(subplots=True, figsize=(12,12))
 ```
 df3.to_csv('gyro.csv', index=True, header=True)
 ```
+
+# Training an ML model
+
+The Accelleromter on the Arduino RP2040 is capable of running Machine Learning models to do low powered classification of movements.  The following steps are based on the tutorials available from STMicroelectronics at this video [Arduino tutorial: using Arduino Nano RP2040 with our new LSM6DSOX inertial sensor with embedded AI](https://youtu.be/hHVsLHqIN9g).
+
+## Gather Data
+
+
+
+## Train & Deploy the Model
+
