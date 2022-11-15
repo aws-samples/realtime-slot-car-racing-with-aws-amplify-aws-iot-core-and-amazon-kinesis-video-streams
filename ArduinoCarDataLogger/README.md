@@ -14,6 +14,9 @@
 1. Download the `nano_rp2040_iot` folder to your PC and move it to the Arduino sketches home folder.  On a Windows PC this will typically be in `C:\Users\<UID>\Documents\Arduino`.
 2. Connect your Arduino Nano to your PC using a USB cable.
 3. Open the Arduino IDE and then open the nano_rp2040_iot.ino file.  You should see two tabs appear, one for the ino file itself and one for the arduino_secrets.h file.
+
+![Arduino Secrets Update](images/arduino_secrets.jpg)
+
 4. Update the following items in your arduino_secrets.h file:
 - SECRET_SIDD: The SIDD of your WiFi network
 - SECRET_PASS: The Password for your WiFi network
