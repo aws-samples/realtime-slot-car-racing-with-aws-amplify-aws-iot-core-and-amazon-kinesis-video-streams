@@ -6,3 +6,4 @@
 
 # Car Data Logger Software Installation
 
+Arduino IDE Setup
