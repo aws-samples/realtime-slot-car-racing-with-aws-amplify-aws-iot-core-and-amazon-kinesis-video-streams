@@ -63,16 +63,22 @@
 
 # Creating Visualisations - Jupyter
 
-1. Open the AWS Console and navigate to *AWS IoT Analytics* > Notebooks*.
+1. Open the AWS Console and navigate to *AWS IoT Analytics > Notebooks*.
 2. Click on the *Create Notebook* button.  
 3. Click on the *IoTA blank Template* option box and then click on the *next* button.
-4. Put a value in for the *notebook name* and select the dataset you created earlier.  Select the *create instance* buttin and fill in the details for a new instance.  you will also need to create a new role as directed.  When you have all the data complete, click on the next button to start creating the notebook.
-5. Your notebook instance will not be created.  Click on the instance to start it.  Click on the "open Jupyter" button to start the Jupyter console.
-6. You will now see the Jupyter console.  Open the IoTAnalytics folder and then open the <notebook_name>.ipynb file.  You will see that the basic data imorts have already been created for you.
-7. Create a new code cell that displays the url of the dataset.
+4. Put a value in for the *notebook name* and select the dataset you created earlier.  Select the *create instance* button and fill in the details for a new instance.  you will also need to create a new role as directed.  When you have all the data complete, click on the next button to start creating the notebook.
+
+![create_notebook](images/create_notebook.jpg)
+
+6. Your notebook instance will not be created.  Click on the instance to start it.  Click on the *open Jupyter* button to start the Jupyter console.
+7. You will now see the Jupyter console.  Open the *IoTAnalytics* folder and then open the *<notebook_name>.ipynb* file.  You will see that the basic data imorts have already been created for you.
+8. Create a new code cell that displays the url of the dataset.
 ```
 dataset_url
 ```
+
+![print_url](images/print_url.jpg)
+
 8. Create a new dataframe and priunt it out so we can see what we have
 ```
 import pandas as pd
@@ -80,6 +86,8 @@ import matplotlib.pyplot as plt
 df = pd.read_csv(dataset_url, header=0, parse_dates=['time'])
 df
 ```
+
+
 
 10. Create a new dataframe using the timestamp as the index to make it queryable
 ```
