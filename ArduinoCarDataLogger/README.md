@@ -83,7 +83,7 @@ df3
 df3.plot(subplots=True, figsize=(12,12))
 
 ```
-15. Lastly, you can export the data for analytics elsewhere if you like
+14. Lastly, you can export the data for analytics elsewhere if you like
 ```
 df3.to_csv('gyro.csv', index=True, header=True)
 ```
