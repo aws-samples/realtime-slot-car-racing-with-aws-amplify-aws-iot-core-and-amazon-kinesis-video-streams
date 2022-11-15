@@ -25,13 +25,20 @@
 5. Click on the Upload button in the Arduino IDE to compile and upload the sketch.  
 6. After the sketch has uploaded and installed on the Arduino nano, open the *Tools > Serial Monitor*.  You should see the device booting up, attaching to the WiFi network and starting the transmission of data.  If you move the Arduino around you will see the accellerometer and gyro recording the movement.
 
+![Arduino Data Capture](images/data_capture.jpg)
+
 ## Integrating with AWS IoT Core
 
 1. Open the AWS Console and navigate to *AWS IoT Core > MQTT Test Client*.  Click on the *Subscripbe to a topic* tab and enter *carid6/gforce* for the *Topic filter* field.  You should see the data arriving in IoT Core from the Arduino in JSON format.
 
+![IoT Core](images/iot_core.jpg)
+
 ## Integrating with AWS IoT Core Analytics
 
 1. Open the AWS Console and navigate to *AWS IoT Analytics*.
+
+![iot_analytics_setup](images/iot_analytics_setup.jpg)
+
 2. In the *Getting Started* section, type *Scalextric* in the *Resources Prefix* field.  Type *carid6/gforce* in the MQTT Topic field.  Click on the *Create resources* button.  AWS IoT Analytics will now create:
 - channel: links IoT Core and IoT Analytics
 - pipeline: links the ingest, process and store operations for your data
