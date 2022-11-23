@@ -24,10 +24,12 @@ The setup is as following:
 Note: the nickname that people set is stored in the database, so we recommend that players pick a non PII nickname.
 
 ## Hardware
-The hardware required for this setup:
+The basic hardware required for this setup:
 1. A slot car track + cars, we used [Scalextric](https://uk.scalextric.com/) for our project.
 2. A RaspberryPi to programmatically control the racetrack.
 3. USB Cable to connect the race track controller to the RaspberryPi
+
+For a more comprehensive hardware setup including adding a Arduino based data logger for the car, see the [Hardware](Hardware/README.md) folder. 
 
 ## Security
 
