@@ -10,8 +10,8 @@ import * as customStatements from '../graphql/custom-statements'
 import { CORE_OVERVIEW_ID, RACE_STATES, RACE_STATE_ICONS, RACER_ICON, LAPTIME_TYPE_STRING, LEADERBOARD_INDEX_ICONS } from '../utils/constants'
 import {useNavigate} from "react-router-dom";
 
-const KVSCHANNEL_REGION = "us-west-2"
-const KVSCHANNEL_ARN = "arn:aws:kinesisvideo:us-west-2:606456525467:channel/live-track-webRTC/1664486452613"
+const KVSCHANNEL_REGION = process.env.REACT_KVS_CHANNEL_REGION
+const KVSCHANNEL_ARN = process.env.REACT_KVS_CHANNEL_ARN
 const NR_OF_LATEST_LAPS_DISPLAYED = 5
 const LEADERBOARD_NR_OF_PEOPLE = 3
 
