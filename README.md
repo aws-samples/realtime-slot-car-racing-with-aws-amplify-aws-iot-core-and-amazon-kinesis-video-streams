@@ -10,7 +10,7 @@ This repository holds the relevant code that was used for the Slot car racing re
 
 The `RaceFrontend`, `RaspberryPythonRaceController` and `StreamProducer` folders have their own READMEs with information on how to set it up yourself.
 
-<video src="Video/20221130_reInvent_2022_penultimate_race.mp4"></video>
+[reInvent 2020 video]<video src="Video/20221130_reInvent_2022_penultimate_race.mp4"></video>
 
 **This code is not meant to be run in production applications. The purpose of this repository is to share the code of our proof-of-concept project that we created for re:Invent 2022 and to serve as a way for people to understand how we created it and get inspiration for their own projects. Deploying this Content may incur AWS charges for creating or using AWS chargeable resources highlighted in the diagram below.**
 
