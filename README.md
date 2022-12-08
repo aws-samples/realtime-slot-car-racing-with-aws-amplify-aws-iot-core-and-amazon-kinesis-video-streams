@@ -10,7 +10,7 @@ This repository holds the relevant code that was used for the Slot car racing re
 
 The `RaceFrontend`, `RaspberryPythonRaceController` and `StreamProducer` folders have their own READMEs with information on how to set it up yourself.
 
-[![re:Invent 2022](https://img.youtube.com/vi/2E1qvGnpZUs/0.jpg)](https://www.youtube.com/watch?v=2E1qvGnpZUs)
+[![re:Invent 2022](https://img.youtube.com/vi/2E1qvGnpZUs/0.jpg)](https://www.youtube.com/watch?v=2E1qvGnpZUs)  
 
 <video src"https://youtu.be/2E1qvGnpZUs"></video>
 
