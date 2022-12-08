@@ -4,10 +4,13 @@ This repository holds the relevant code that was used for the Slot car racing re
 2. The `RaceFrontend` folder which contains the code for the Amplify Project that allows people to control cars from their phones, and had a race-overview page with the livestream and race stats.
 3. The `RaspberryPythonRaceController` folder which contains the code that we're running on our RaspberryPi to control our slot car track.
 4. The `StreamProducer` folder which contains information on how to setup your Kinesis Video Stream producer on another Raspberry Pi to create a live video streaming experience.
-
+5. The `Hardware` folder which contains information on how to build your own cars and race track as well as hints on customization.
+6. The `ArduinoCarDataLogger` folder which contains information about how to integrate a car with AWS IoT Core and AWS IoT Analytics.
+7. The `Play` folder which contains the operating manual for running the game at an event.
 
 The `RaceFrontend`, `RaspberryPythonRaceController` and `StreamProducer` folders have their own READMEs with information on how to set it up yourself.
 
+[re:Invent 2022](Video/20221130_reInvent_2022_penultimate_race.mp4)
 
 **This code is not meant to be run in production applications. The purpose of this repository is to share the code of our proof-of-concept project that we created for re:Invent 2022 and to serve as a way for people to understand how we created it and get inspiration for their own projects. Deploying this Content may incur AWS charges for creating or using AWS chargeable resources highlighted in the diagram below.**
 
