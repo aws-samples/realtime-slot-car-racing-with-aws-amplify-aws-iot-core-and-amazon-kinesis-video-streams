@@ -10,7 +10,7 @@
     "@testing-library/user-event": "^13.2.1",
     "aws-amplify": "^4.3.29",
     "aws-iot-device-sdk": "^2.2.12",
-    "crypto-js": "^4.1.1",
+    "crypto-js": "^4.2.0",
     "http-proxy-middleware": "^2.0.6",
     "lodash": "^4.17.21",
     "paho-mqtt": "^1.1.0",
