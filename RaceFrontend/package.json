@@ -11,7 +11,7 @@
     "aws-amplify": "^4.3.29",
     "aws-iot-device-sdk": "^2.2.12",
     "crypto-js": "^4.2.0",
-    "http-proxy-middleware": "^2.0.6",
+    "http-proxy-middleware": "^2.0.7",
     "lodash": "^4.17.21",
     "paho-mqtt": "^1.1.0",
     "react": "^18.2.0",
