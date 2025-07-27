@@ -1,0 +1,26 @@
+# MicroPython Requirements for Raspberry Pi Pico 2 W Race Controller
+# Install these packages using upip on the device
+
+# MQTT client for AWS IoT Core
+micropython-umqtt.simple
+
+# Additional useful packages (optional)
+micropython-logging  # Enhanced logging (if needed)
+
+# Note: The following are built-in to MicroPython and don't need installation:
+# - asyncio (built-in async support)
+# - json (built-in JSON handling)
+# - ssl (built-in SSL/TLS)
+# - network (built-in WiFi support)
+# - machine (built-in hardware control)
+# - time (built-in time functions)
+
+# Installation commands to run on Pico 2 W:
+# >>> import upip
+# >>> upip.install('micropython-umqtt.simple')
+
+# For development/testing on PC with regular Python:
+# asyncio
+# json
+# ssl
+# time
