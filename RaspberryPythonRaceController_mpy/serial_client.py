@@ -15,15 +15,25 @@ class SerialClient:
                         tx=Pin(config.UART_TX_PIN), 
                         rx=Pin(config.UART_RX_PIN))
         self.connected = True
-        self.send_queue = asyncio.Queue(maxsize=10)
-        self.receive_queue = asyncio.Queue(maxsize=50)
+        self.send_queue = asyncio.Queue(maxsize=config.MAX_QUEUE_SIZE)
+        self.receive_queue = asyncio.Queue(maxsize=config.MAX_QUEUE_SIZE)
         log.info("Serial client initialized")
     
     async def send_data(self, data):
         """Queue data for sending"""
         try:
+            # Validate data format
+            if not isinstance(data, list) or len(data) > 255:
+                log.warning("Invalid serial data format")
+                return
+            
+            # Validate data values
+            if not all(isinstance(x, int) and 0 <= x <= 255 for x in data):
+                log.warning("Invalid serial data values")
+                return
+            
             await self.send_queue.put(data)
-            log.debug(f"Queued data for sending: {data}")
+            log.debug(f"Queued data for sending")
         except:
             log.error("Send queue full, dropping data")
     

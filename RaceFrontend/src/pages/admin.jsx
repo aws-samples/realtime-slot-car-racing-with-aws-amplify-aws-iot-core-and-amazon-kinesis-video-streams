@@ -182,15 +182,18 @@ export default function Admin() {
   const initialise = async () => {
     setLoading(true)
     try {
-      await API.graphql(graphqlOperation(queries.raceOperations, {
-        input: {
-          operation: RACE_OPERATIONS.INITIALISE,
-          secretPin,
-          additionalParams: {
-            nrOfLaps
+      await client.graphql({
+        query: queries.raceOperations,
+        variables: {
+          input: {
+            operation: RACE_OPERATIONS.INITIALISE,
+            secretPin,
+            additionalParams: {
+              nrOfLaps
+            }
           }
         }
-      }))
+      })
     } catch (error) {
       console.error(error)
     }
@@ -205,15 +208,18 @@ export default function Admin() {
     const confirmed = confirm(RACE_CONFIRMATION_MESSAGES[operation])
     if (confirmed === true) {
       try {
-        await API.graphql(graphqlOperation(queries.raceOperations, {
-          input: {
-            operation: operation,
-            secretPin,
-            additionalParams: {
-              nrOfLaps
+        await client.graphql({
+          query: queries.raceOperations,
+          variables: {
+            input: {
+              operation: operation,
+              secretPin,
+              additionalParams: {
+                nrOfLaps
+              }
             }
           }
-        }))
+        })
         raceSubscriptionRef.current.unsubscribe()
         await init()
       } catch (error) {
@@ -243,15 +249,18 @@ export default function Admin() {
       if (!confirmed) { setLoading(false); return }
     }
     try {
-      await API.graphql(graphqlOperation(queries.raceOperations, {
-        input: {
-          operation: operation,
-          secretPin,
-          additionalParams: {
-            raceId: race.id
+      await client.graphql({
+        query: queries.raceOperations,
+        variables: {
+          input: {
+            operation: operation,
+            secretPin,
+            additionalParams: {
+              raceId: race.id
+            }
           }
         }
-      }))
+      })
     } catch (error) {
       console.error(error)
       setLoading(false)

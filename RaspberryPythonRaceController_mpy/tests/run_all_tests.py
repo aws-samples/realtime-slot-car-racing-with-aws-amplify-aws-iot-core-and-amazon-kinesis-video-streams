@@ -8,6 +8,7 @@ import asyncio
 from test_byte_helper import run_all_tests as test_byte_helper
 from test_models import run_all_tests as test_models
 from test_race_controller import run_all_tests as test_race_controller
+from test_security import run_all_tests as test_security
 
 async def main():
     """Run all test suites"""
@@ -27,11 +28,14 @@ async def main():
     print("\n3. RaceController Tests")
     results.append(await test_race_controller())
     
+    print("\n4. Security Tests")
+    results.append(test_security())
+    
     # Summary
     print("\n" + "=" * 50)
     print("📊 Test Results Summary:")
     
-    test_names = ["ByteHelper", "Models", "RaceController"]
+    test_names = ["ByteHelper", "Models", "RaceController", "Security"]
     passed = sum(results)
     total = len(results)
     

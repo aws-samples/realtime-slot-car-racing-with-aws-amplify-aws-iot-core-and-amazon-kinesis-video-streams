@@ -7,6 +7,8 @@ import ssl
 from umqtt.simple import MQTTClient
 import config
 from logger import log
+from security import SecurityValidator, RateLimiter
+from compat import ticks_ms
 
 class MQTTClientAsync:
     """Async MQTT client for AWS IoT Core"""
@@ -15,17 +17,29 @@ class MQTTClientAsync:
         """Initialize MQTT client"""
         self.client = None
         self.connected = False
-        self.publish_queue = asyncio.Queue(maxsize=50)
-        self.message_queue = asyncio.Queue(maxsize=100)
+        self.publish_queue = asyncio.Queue(maxsize=config.MAX_QUEUE_SIZE)
+        self.message_queue = asyncio.Queue(maxsize=config.MAX_QUEUE_SIZE)
         self.subscriptions = {}
+        self.rate_limiter = RateLimiter(config.MAX_MESSAGE_RATE)
         log.info("MQTT client initialized")
     
     def _message_callback(self, topic, msg):
         """Handle incoming MQTT messages"""
         try:
+            # Rate limiting check
+            if not self.rate_limiter.is_allowed(ticks_ms()):
+                log.warning("Message rate limit exceeded, dropping message")
+                return
+            
             topic_str = topic.decode('utf-8')
             msg_str = msg.decode('utf-8')
-            log.debug(f"Received message on {topic_str}: {msg_str}")
+            
+            # Basic validation
+            if len(msg_str) > SecurityValidator.MAX_JSON_SIZE:
+                log.warning("Message too large, dropping")
+                return
+            
+            log.debug(f"Received message on {topic_str}")
             
             # Queue message for processing
             asyncio.create_task(self.message_queue.put((topic_str, msg_str)))
@@ -35,8 +49,14 @@ class MQTTClientAsync:
     async def connect(self):
         """Connect to AWS IoT Core"""
         try:
-            # Create SSL context for AWS IoT Core
+            # Validate configuration
+            if not config.AWS_IOT_ENDPOINT:
+                raise ValueError("AWS IoT endpoint not configured")
+            
+            # Create SSL context with certificate validation
             context = ssl.create_default_context()
+            context.check_hostname = True
+            context.verify_mode = ssl.CERT_REQUIRED
             
             self.client = MQTTClient(
                 client_id=config.AWS_IOT_CLIENT_ID,

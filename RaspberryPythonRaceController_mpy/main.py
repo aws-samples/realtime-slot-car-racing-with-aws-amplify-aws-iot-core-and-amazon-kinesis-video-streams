@@ -9,6 +9,7 @@ from wifi_manager import WiFiManager
 from mqtt_client import MQTTClientAsync
 from serial_client import SerialClient
 from race_controller import RaceController
+from secure_config import SecureConfig
 
 class RaceApplication:
     """Main race application orchestrating all components"""
@@ -25,6 +26,11 @@ class RaceApplication:
     async def start(self):
         """Start the race application"""
         log.info("Starting race application...")
+        
+        # Validate configuration
+        if not SecureConfig.validate_config():
+            log.error("Configuration validation failed")
+            return False
         
         # Connect to WiFi
         if not await self.wifi.connect():

@@ -128,7 +128,7 @@ export default function RaceController() {
       error: error => console.warn(error)
     });
 
-    const updateOverviewSubscription = await API.graphql({
+    const updateOverviewSubscription = client.graphql({
       query: customStatements.customOnUpdateOverview
     }).subscribe({
       next: ({ _, value }) => {
@@ -138,7 +138,7 @@ export default function RaceController() {
       error: error => console.warn(error)
     });
 
-    const lapTimeSubscription = await API.graphql({
+    const lapTimeSubscription = client.graphql({
       query: customStatements.customOnCreateLapTime
     }).subscribe({
       next: ({ _, value }) => {
@@ -187,10 +187,13 @@ export default function RaceController() {
   }
 
   const fetchLapTimes = async () => {
-    const lapTimes = await API.graphql(graphqlOperation(customStatements.customLapTimesByPlayerId, {
-      playerId: playerRef.current.id,
-      limit: 1000
-    }))
+    const lapTimes = await client.graphql({
+      query: customStatements.customLapTimesByPlayerId,
+      variables: {
+        playerId: playerRef.current.id,
+        limit: 1000
+      }
+    })
 
     const lapTimeItems = lapTimes.data.lapTimesByPlayerId.items
 

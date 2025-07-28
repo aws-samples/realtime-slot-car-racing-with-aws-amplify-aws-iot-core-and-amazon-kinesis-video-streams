@@ -22,13 +22,13 @@ async def test_race_initialization():
     # Test race update
     race_data = {
         "gameState": "lobby",
-        "raceId": "new-race-123",
+        "raceId": "2bb42be6-24cb-41ac-b1d8-955e7bc2f511",
         "carClaims": []
     }
     
     await controller.handle_race_update(json.dumps(race_data))
     
-    assert controller.current_race_id == "new-race-123", "Race ID should be updated"
+    assert controller.current_race_id == "2bb42be6-24cb-41ac-b1d8-955e7bc2f511", "Race ID should be updated"
     assert controller.current_race_state == config.RACE_STATE_LOBBY, "Race state should be lobby"
     
     print("✓ Race initialization test passed")
@@ -42,14 +42,14 @@ async def test_car_updates():
     # Set up race first
     race_data = {
         "gameState": "lobby",
-        "raceId": "test-race",
+        "raceId": "3bb42be6-24cb-41ac-b1d8-955e7bc2f512",
         "carClaims": []
     }
     await controller.handle_race_update(json.dumps(race_data))
     
     # Test car update
     car_data = {
-        "raceId": "test-race",
+        "raceId": "3bb42be6-24cb-41ac-b1d8-955e7bc2f512",
         "carId": "1",
         "player_id": "player123",
         "throttle": 75,
@@ -95,7 +95,7 @@ async def test_lap_time_processing():
     
     controller = RaceController()
     controller.current_race_state = config.RACE_STATE_GREEN_FLAG
-    controller.current_race_id = "test-race"
+    controller.current_race_id = "4bb42be6-24cb-41ac-b1d8-955e7bc2f513"
     
     # Set up car with player
     controller.cars[0].player_id = "player1"
@@ -108,7 +108,7 @@ async def test_lap_time_processing():
     lap_time = await controller.get_lap_time()
     
     assert lap_time is not None, "Lap time should be recorded"
-    assert lap_time.race_id == "test-race", "Race ID should match"
+    assert lap_time.race_id == "4bb42be6-24cb-41ac-b1d8-955e7bc2f513", "Race ID should match"
     assert lap_time.player_id == "player1", "Player ID should match"
     assert lap_time.lap_time_ms == 50000, "Lap time should be correct"
     
@@ -120,7 +120,7 @@ async def test_track_data_processing():
     
     controller = RaceController()
     controller.current_race_state = config.RACE_STATE_GREEN_FLAG
-    controller.current_race_id = "test-race"
+    controller.current_race_id = "5bb42be6-24cb-41ac-b1d8-955e7bc2f514"
     
     # Set up car
     controller.cars[0].player_id = "player1"

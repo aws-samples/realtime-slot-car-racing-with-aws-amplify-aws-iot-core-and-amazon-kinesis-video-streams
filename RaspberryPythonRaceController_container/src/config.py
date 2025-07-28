@@ -1,34 +1,27 @@
-# Configuration for Raspberry Pi Pico 2 W Slot Car Racing Controller
-# MicroPython version
+"""Configuration settings for the race controller."""
+import os
+from typing import Dict, List, Set
 
-# WiFi Configuration - DO NOT COMMIT REAL CREDENTIALS
-WIFI_SSID = None  # Set via environment or secure config
-WIFI_PASSWORD = None  # Set via environment or secure config
-
-# AWS IoT Core Configuration - DO NOT COMMIT REAL ENDPOINTS
-AWS_IOT_ENDPOINT = None  # Set via environment or secure config
-AWS_IOT_PORT = 8883
-AWS_IOT_CLIENT_ID = "pico2w-race-controller"
+# AWS IoT Configuration
+AWS_IOT_ENDPOINT = os.getenv('AWS_IOT_ENDPOINT', 'your-endpoint.iot.region.amazonaws.com')
+AWS_IOT_PORT = int(os.getenv('AWS_IOT_PORT', '8883'))
+AWS_IOT_CLIENT_ID = os.getenv('AWS_IOT_CLIENT_ID', 'race-controller')
 
 # MQTT Topics
 GAME_STATE_UPDATE_TOPIC = 'GAME_STATE_UPDATE'
 CAR_CONTROL_UPDATE_TOPIC = 'CAR_CONTROL_UPDATE'
 LAP_TIME_TOPIC = "RACE_LAP_TIME"
 RACE_ANALYTICS_TOPIC = "RACE_ANALYTICS"
-TRACK_MQTT_TOPIC_PUB = "6cpb/outgoing"
-TRACK_MQTT_TOPIC_SUB = "6cpb/incoming"
 
-# Serial Configuration for race track communication
-UART_TX_PIN = 0  # GP0
-UART_RX_PIN = 1  # GP1
-UART_BAUDRATE = 19200
+# Serial Configuration
+SERIAL_PORT = os.getenv('SERIAL_PORT', '/dev/ttyUSB0')
+SERIAL_BAUDRATE = int(os.getenv('SERIAL_BAUDRATE', '19200'))
 
-# Timing Configuration (milliseconds) - Rate limiting
+# Timing Configuration
 MQTT_REFRESH_RATE_MS = 100
 SERIAL_REFRESH_RATE_MS = 100
 ANALYTICS_REFRESH_RATE_MS = 1000
-MAX_MESSAGE_RATE = 50  # Max messages per second
-MAX_QUEUE_SIZE = 50    # Prevent memory exhaustion
+MAX_QUEUE_SIZE = 50
 
 # Race Configuration
 TOTAL_NUMBER_OF_CARS = 6
@@ -41,7 +34,7 @@ GAME_TICK_MICROSECONDS = 6.4
 GAMETICK_IN_MILLISECOND = GAME_TICK_MICROSECONDS / 1000
 
 # Throttle mapping
-THROTTLE_SETTINGS = {
+THROTTLE_SETTINGS: Dict[int, int] = {
     0: 0, 10: 10, 20: 11, 30: 12, 40: 13, 50: 14,
     60: 15, 70: 16, 80: 17, 90: 18, 100: 19
 }
@@ -57,13 +50,13 @@ RACE_STATE_CHECKERED_FLAG = "checkered_flag"
 RACE_STATE_ABORTED = "aborted"
 RACE_STATE_FORMATION_LAPS = "formation_laps"
 
-RACE_STATES = {
+RACE_STATES: Set[str] = {
     RACE_STATE_LOBBY, RACE_STATE_PRACTICE, RACE_STATE_PENDING,
     RACE_STATE_RED_FLAG, RACE_STATE_YELLOW_FLAG, RACE_STATE_GREEN_FLAG,
     RACE_STATE_CHECKERED_FLAG, RACE_STATE_ABORTED, RACE_STATE_FORMATION_LAPS
 }
 
-RACE_DRIVING_STATES = [
+RACE_DRIVING_STATES: List[str] = [
     RACE_STATE_PRACTICE, RACE_STATE_YELLOW_FLAG, RACE_STATE_GREEN_FLAG
 ]
 
@@ -76,10 +69,3 @@ FORMATION_LAPS_CARS = {
     i: {"enabled": True, "throttle": FORMATION_LAP_THROTTLE} 
     for i in range(1, TOTAL_NUMBER_OF_CARS + 1)
 }
-
-# Logging levels
-LOG_DEBUG = 0
-LOG_INFO = 1
-LOG_WARNING = 2
-LOG_ERROR = 3
-LOG_LEVEL = LOG_INFO

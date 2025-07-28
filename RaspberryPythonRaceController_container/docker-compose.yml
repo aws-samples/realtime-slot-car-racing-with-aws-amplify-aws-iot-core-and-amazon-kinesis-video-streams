@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  race-controller:
+    build: .
+    container_name: race-controller
+    environment:
+      - AWS_IOT_ENDPOINT=${AWS_IOT_ENDPOINT}
+      - AWS_IOT_CLIENT_ID=${AWS_IOT_CLIENT_ID:-race-controller}
+      - SERIAL_PORT=${SERIAL_PORT:-/dev/ttyUSB0}
+      - SERIAL_BAUDRATE=${SERIAL_BAUDRATE:-19200}
+    devices:
+      - "${SERIAL_PORT:-/dev/ttyUSB0}:${SERIAL_PORT:-/dev/ttyUSB0}"
+    volumes:
+      - ./logs:/var/log
+      - ./certs:/app/certs:ro
+    restart: unless-stopped
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
